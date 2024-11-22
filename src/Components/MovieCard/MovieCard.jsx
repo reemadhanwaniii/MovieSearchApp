@@ -1,3 +1,5 @@
+import './MovieCard.css';
+
 function MovieCard({Title, Year, Type, Poster}) {
     return(
         <div className="moviecard-wrapper">
@@ -11,7 +13,7 @@ function MovieCard({Title, Year, Type, Poster}) {
                 <span>Released in : {Year}</span>
             </div>
             <div className="movie-type">
-                <span>{Type}</span>
+                <span>Type : {Type}</span>
             </div>
         </div>
     )
