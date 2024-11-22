@@ -11,10 +11,7 @@ function Home() {
     return(
         <>
             <MovieCard 
-                Title={movie.Title}
-                Year={movie.Year}
-                Type={movie.Type}
-                Poster={movie.Poster}
+               {...movie}
             />
         </>
     )
