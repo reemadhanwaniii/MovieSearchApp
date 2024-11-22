@@ -13,14 +13,19 @@ function Home() {
    
     const [movieList,setMovieList] = useState([]);
 
-    async function downloadDefaultMovies(movieName) {
-        const response = await axios.get(searchMovie(movieName));
-        console.log(response.data);
-        setMovieList(response.data.Search)
+    async function downloadDefaultMovies(...args) {
+        //console.log(args);
+        const urls = args.map((name) => searchMovie(name));
+        //console.log(urls);
+        const response = await axios.all(urls.map((url)=>axios.get(url)));
+        //console.log(response);
+        const movies = response.map((res) => res.data.Search)
+        //console.log(movies);
+        setMovieList([].concat(...movies))
     }
 
     useEffect(()=>{
-        downloadDefaultMovies('harry');
+        downloadDefaultMovies('harry','avengers');
     },[]);
 
     return(
