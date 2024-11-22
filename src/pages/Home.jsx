@@ -6,6 +6,7 @@ function Home() {
              * MovieList
              * pagination button
              */}
+             Home
         </>
     )
 }
