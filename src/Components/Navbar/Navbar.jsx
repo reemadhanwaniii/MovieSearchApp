@@ -2,23 +2,25 @@ import { useState } from 'react';
 import './Navbar.css';
 import { useMovieList } from '../../hooks/useMovieList';
 import useDebounce from '../../hooks/useDebounce';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Navbar() {
     const [isAutoCompleteVisible,setIsAutoCompleteVisible] = useState(false);
     const [searchTerm,setSearchTerm] = useState('');
     const {movieList} = useMovieList(searchTerm);
-
+    const navigator = useNavigate();
 
     function handleAutoCompleteClick(e,imdbID) {
         console.log("onMouseDown ",e.target,imdbID);
-        //e.stopPropagation();
+        navigator(`/movie/${imdbID}`)
     }
 
     return(
         <div className="navbar-wrapper">
-            <div>
-                Movie Base
+            <div className='movie-base-title'>
+                <Link to={`/`}>
+                    Movie Base
+                </Link>
             </div>
             <div className="search-bar">
                 <input 
@@ -41,13 +43,10 @@ function Navbar() {
                     {
                         movieList.length > 0 &&
                         movieList.map((movie)=> 
-                            <Link key={movie.imdbID} to={`/movie/${movie.imdbID}`}> 
                              <div onMouseDown={(e) => handleAutoCompleteClick(e, movie.imdbID)} 
-                                  className='autocomplete-result'>
+                                                key={movie.imdbID} className='autocomplete-result'>
                                                     {movie.Title}
-                             </div>
-                            </Link>
-                            )
+                             </div>)
                     }
                 </div>
             </div>
