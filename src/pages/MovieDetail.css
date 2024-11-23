@@ -7,7 +7,7 @@
 
 
 .movie-details {
-    color: white;
+    color: var(--font-color);
     flex-basis: 50%;
     font-size: x-large;
     display: flex;
@@ -21,4 +21,5 @@
     background-color: var(--dull-blue);
     padding: 10px 20px;
     margin-right: 1rem;
+    color: white;
 }
