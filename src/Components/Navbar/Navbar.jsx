@@ -16,6 +16,16 @@ function Navbar() {
     const {theme,setTheme} = useContext(ThemeContext)
 
 
+    function updateTheme() {
+        if(theme === 'dark') {
+            setTheme('light');
+            localStorage.setItem('app-theme','light');
+        }else {
+            setTheme('dark');
+            localStorage.setItem('app-theme','dark');
+        }
+    }
+
     function handleAutoCompleteClick(e,imdbID) {
         console.log("onMouseDown ",e.target,imdbID);
         navigator(`/movie/${imdbID}`)
@@ -56,7 +66,7 @@ function Navbar() {
                     }
                 </div>
             </div>
-            <div onClick={() => setTheme((theme === 'dark')?'light':'dark')}>
+            <div onClick={updateTheme}>
                 <FontAwesomeIcon className='theme-icon' icon={(theme === 'dark')?faSun:faMoon}/>
             </div>
         </div>
