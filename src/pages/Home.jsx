@@ -21,6 +21,7 @@ function Home() {
                     return <MovieCard 
                                 key={movie.imdbID}
                                 {...movie}
+                                id={movie.imdbID}
                             />
                     }
                 )}

@@ -3,6 +3,10 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { searchMovieByID } from "../apis/omdb";
 import MovieCard from "../Components/MovieCard/MovieCard";
+import './MovieDetail.css';
+import { Rating } from '@smastrom/react-rating'
+import '@smastrom/react-rating/style.css'
+
 
 function MovieDetail() {
 
@@ -17,12 +21,29 @@ function MovieDetail() {
 
     useEffect(()=>{
         downloadMovie();
-    },[]);
+    },[id]);
 
     return(
-        <>
-           {movie && <MovieCard {...movie}/>}
-        </>
+        <div className="movie-detail-wrapper">
+          {movie && <MovieCard {...movie} id={movie.imdbID}/>}
+          {movie && <div className="movie-details">
+            <div>
+              Plot : {movie.Plot}
+            </div>
+            <div>
+                Actors : {movie.Actors}
+            </div>
+            <div>
+                Genre : {movie.Genre.split(',').map((genre)=> {
+                    return <span  className="genre-name" key={genre}>{genre}</span>
+                })}
+            </div>
+            <div>
+             <Rating items={10} value={Math.floor(movie.imdbRating)} style={{ maxWidth: 250 }}/>
+            </div>
+         </div>
+        }
+        </div>
     )
 }
 
