@@ -8,6 +8,12 @@ function Navbar() {
     const [searchTerm,setSearchTerm] = useState('');
     const {movieList} = useMovieList(searchTerm);
 
+
+    function handleAutoCompleteClick(e,imdbID) {
+        console.log("onMouseDown ",e.target);
+        //e.stopPropagation();
+    }
+
     return(
         <div className="navbar-wrapper">
             <div>
@@ -20,7 +26,8 @@ function Navbar() {
                     onFocus={() =>{
                        setIsAutoCompleteVisible(true);
                     }}
-                    onBlur={() =>{
+                    onBlur={(e) =>{
+                        console.log(e.target);
                         setIsAutoCompleteVisible(false);
                     }}
                     onChange={useDebounce((e) => {
@@ -32,7 +39,7 @@ function Navbar() {
                     <div className='autocomplete-result'>Autocomplete results ....{searchTerm}</div>
                     {
                         movieList.length > 0 &&
-                        movieList.map((movie)=>  <div key={movie.imdbID} className='autocomplete-result'>{movie.Title}</div>)
+                        movieList.map((movie)=>  <div onMouseDown={(e) => handleAutoCompleteClick(e, movie.imdbID)} key={movie.imdbID} className='autocomplete-result'>{movie.Title}</div>)
                     }
                 </div>
             </div>
