@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import './Navbar.css';
 import { useMovieList } from '../../hooks/useMovieList';
+import useDebounce from '../../hooks/useDebounce';
 
 function Navbar() {
     const [isAutoCompleteVisible,setIsAutoCompleteVisible] = useState(false);
     const [searchTerm,setSearchTerm] = useState('');
-    const {movieList} = useMovieList(!searchTerm ? 'siblings' : searchTerm);
+    const {movieList} = useMovieList(searchTerm);
 
     return(
         <div className="navbar-wrapper">
@@ -22,13 +23,13 @@ function Navbar() {
                     onBlur={() =>{
                         setIsAutoCompleteVisible(false);
                     }}
-                    onChange={(e) => {
+                    onChange={useDebounce((e) => {
                         setSearchTerm(e.target.value);
-                    }}
+                    })}
                     placeholder='What movie you are thinking about...?'
                 />
                 <div id="result-list" style={{display: (isAutoCompleteVisible)?'block':'none'}}>
-                    <div className='autocomplete-result'>Autocomplete results ....</div>
+                    <div className='autocomplete-result'>Autocomplete results ....{searchTerm}</div>
                     {
                         movieList.length > 0 &&
                         movieList.map((movie)=>  <div key={movie.imdbID} className='autocomplete-result'>{movie.Title}</div>)

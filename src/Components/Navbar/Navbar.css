@@ -39,7 +39,11 @@
     font-size: medium;
     color: black;
     width: 100%;
-    border-radius: 10px;
+    border-radius: 20px;
+    max-height: 400px;
+    overflow-y: scroll;
+    /* box-shadow: 10px 10px; */
+    border: 1px solid var(--light-prime-gray);
 }
 
 #result-list >.autocomplete-result {
@@ -47,5 +51,5 @@
     letter-spacing: 0rem;
     margin-bottom: 1rem;
     padding: 1rem;
-    border: 1px solid black;
+    border-bottom: 1px solid black;
 }

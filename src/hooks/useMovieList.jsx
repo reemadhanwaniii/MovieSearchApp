@@ -19,7 +19,7 @@ export function useMovieList(...args) {
             }
            
         } catch (error) {
-            console.log("API request failed");
+            console.log("API request failed",error);
         }
        
     }
