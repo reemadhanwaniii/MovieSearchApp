@@ -50,3 +50,4 @@ can use session storage. beacuse cookies can't store that much amount of data. u
 
 
 ## Accordian
+## Storage Api : mdn docs (proactive eviction etc , browser storage space)
