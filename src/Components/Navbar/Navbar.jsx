@@ -1,10 +1,11 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import './Navbar.css';
+import { useMovieList } from '../../hooks/useMovieList';
 
 function Navbar() {
-
-   //const resultListRef = useRef(null);
     const [isAutoCompleteVisible,setIsAutoCompleteVisible] = useState(false);
+    const [searchTerm,setSearchTerm] = useState('');
+    const {movieList} = useMovieList(!searchTerm ? 'siblings' : searchTerm);
 
     return(
         <div className="navbar-wrapper">
@@ -16,19 +17,22 @@ function Navbar() {
                     id="movie-search-input"
                     type="text" 
                     onFocus={() =>{
-                       // resultListRef.current.style.display = 'block';
                        setIsAutoCompleteVisible(true);
                     }}
                     onBlur={() =>{
-                        //resultListRef.current.style.display = 'none';
                         setIsAutoCompleteVisible(false);
+                    }}
+                    onChange={(e) => {
+                        setSearchTerm(e.target.value);
                     }}
                     placeholder='What movie you are thinking about...?'
                 />
                 <div id="result-list" style={{display: (isAutoCompleteVisible)?'block':'none'}}>
-                    <div className='autocomplete-result'>result 1</div>
-                    <div className='autocomplete-result'>result 2</div>
-                    <div className='autocomplete-result'>result 3</div>
+                    <div className='autocomplete-result'>Autocomplete results ....</div>
+                    {
+                        movieList.length > 0 &&
+                        movieList.map((movie)=>  <div key={movie.imdbID} className='autocomplete-result'>{movie.Title}</div>)
+                    }
                 </div>
             </div>
             <div>
